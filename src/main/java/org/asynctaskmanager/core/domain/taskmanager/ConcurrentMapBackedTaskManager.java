@@ -14,6 +14,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import java.util.stream.Collectors;
 
 /**
  * Memory-backed _not persisted_ task manager.
@@ -81,6 +82,15 @@ public class ConcurrentMapBackedTaskManager implements TaskManager {
     @Override
     public void close() throws Exception {
         executor.shutdown();
+    }
+
+    @Override
+    public Collection<AsyncTask> forceClose() {
+        executor.shutdownNow();
+
+        return tasks.values().stream()
+                .filter(task -> !task.isDone())
+                .collect(Collectors.toList());
     }
     //endregion
 }

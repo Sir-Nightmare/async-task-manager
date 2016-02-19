@@ -22,4 +22,10 @@ public interface TaskManager extends AutoCloseable {
      * But new tasks aren't submitted.
      */
     void close() throws Exception;
+
+    /**
+     * Force shutdowns TaskManager.
+     * @return Not completed Tasks.
+     */
+    Collection<AsyncTask> forceClose();
 }
