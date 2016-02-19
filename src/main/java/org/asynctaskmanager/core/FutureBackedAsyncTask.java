@@ -3,19 +3,18 @@ package org.asynctaskmanager.core;
 import java.util.concurrent.Future;
 
 /**
- * Package-local Task implementation.
+ * Package-local AsyncTask implementation.
  */
-//FIXME id
-class FutureBackedTask implements Task {
+class FutureBackedAsyncTask implements AsyncTask {
     private final Future<?> result;
-    private volatile String id;
+    private final String id;
 
-    public FutureBackedTask(String id, Future<?> result) {
-        this(result);
+    public FutureBackedAsyncTask(String id, Future<?> result) {
+        this.result = result;
         this.id = id;
     }
 
-    public FutureBackedTask(Future<?> result) {
+    public FutureBackedAsyncTask(Future<?> result) {
         this.result = result;
         this.id = String.valueOf(System.identityHashCode(this));
     }

@@ -1,6 +1,6 @@
 package org.asynctaskmanager.core;
 
-public interface Task {
+public interface AsyncTask {
     String getId();
     boolean isDone();
 }

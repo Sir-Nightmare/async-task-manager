@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/task")
-public class TaskController extends BaseTaskController<SimpleTaskRequest> {
+public class SimpleTaskController extends BaseTaskController<SimpleTaskRequest> {
     private static final Logger logger = LoggerFactory.getLogger(BaseTaskController.class);
 
     @Override

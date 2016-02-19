@@ -1,8 +1,8 @@
 package org.asynctaskmanager.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.asynctaskmanager.core.AsyncTask;
 import org.asynctaskmanager.core.TaskManager;
-import org.asynctaskmanager.core.Task;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,12 +33,14 @@ public abstract class BaseTaskController<R> {
 
     //region public API
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody Task submit(@RequestBody String rawTaskRequest) throws IOException { //FIXME exceptions
+    public @ResponseBody
+    AsyncTask submit(@RequestBody String rawTaskRequest) throws IOException { //FIXME exceptions
         return submit(null, rawTaskRequest);
     }
 
     @RequestMapping(value = "/{taskId}", method = RequestMethod.POST)
-    public @ResponseBody Task submit(@PathVariable("taskId") String taskId, @RequestBody String rawTaskRequest) throws IOException { //FIXME exceptions
+    public @ResponseBody
+    AsyncTask submit(@PathVariable("taskId") String taskId, @RequestBody String rawTaskRequest) throws IOException { //FIXME exceptions
         if (isEmpty(rawTaskRequest)) throw new IllegalArgumentException("Empty task request");
 
         R taskRequest = jsonMapper.readValue(rawTaskRequest, this.getTaskRequestType());
