@@ -37,3 +37,17 @@ Content-Type: application/json
 }
 ```
 
+Example response:
+```
+{"id":"1711014896","done":false}
+```
+
+## Get Task and Status
+```
+GET http://localhost:8080/api/v1/task/{task-id}
+```
+
+Example Response:
+```
+{"id":"811194812","done":true}
+```
