@@ -1,11 +1,13 @@
-package org.asynctaskmanager.core.domain;
+package org.asynctaskmanager.core.domain.task;
+
+import org.asynctaskmanager.core.domain.task.AsyncTask;
 
 import java.util.concurrent.Future;
 
 /**
  * Package-local AsyncTask implementation.
  */
-class FutureBackedAsyncTask implements AsyncTask {
+public class FutureBackedAsyncTask implements AsyncTask {
     private final Future<?> result;
     private final String id;
 

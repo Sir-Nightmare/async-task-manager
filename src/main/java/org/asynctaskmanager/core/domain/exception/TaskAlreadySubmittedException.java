@@ -1,4 +1,4 @@
-package org.asynctaskmanager.core.domain;
+package org.asynctaskmanager.core.domain.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

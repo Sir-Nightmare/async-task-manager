@@ -1,10 +1,10 @@
 package org.asynctaskmanager.core.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import org.asynctaskmanager.core.domain.AsyncTask;
-import org.asynctaskmanager.core.domain.TaskAlreadySubmittedException;
-import org.asynctaskmanager.core.domain.TaskManager;
-import org.asynctaskmanager.core.domain.TaskNotFoundException;
+import org.asynctaskmanager.core.domain.task.AsyncTask;
+import org.asynctaskmanager.core.domain.exception.TaskAlreadySubmittedException;
+import org.asynctaskmanager.core.domain.taskmanager.TaskManager;
+import org.asynctaskmanager.core.domain.exception.TaskNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,5 +61,12 @@ public abstract class BaseTaskController<R> {
     public @ResponseBody Collection<AsyncTask> getTasks() {
         return taskManager.getTasks();
     }
+
+
+    @RequestMapping(value = "/completed", method = RequestMethod.DELETE)
+    public void deleteCompleted() {
+        taskManager.deleteCompleted();
+    }
+
     //endregion
 }

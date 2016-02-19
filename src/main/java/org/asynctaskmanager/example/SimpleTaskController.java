@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/tasks")
 public class SimpleTaskController extends BaseTaskController<SimpleTaskRequest> {
     private static final Logger logger = LoggerFactory.getLogger(BaseTaskController.class);
 

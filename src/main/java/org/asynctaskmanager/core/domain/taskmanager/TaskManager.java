@@ -1,5 +1,9 @@
-package org.asynctaskmanager.core.domain;
+package org.asynctaskmanager.core.domain.taskmanager;
 
+
+import org.asynctaskmanager.core.domain.exception.TaskAlreadySubmittedException;
+import org.asynctaskmanager.core.domain.exception.TaskNotFoundException;
+import org.asynctaskmanager.core.domain.task.AsyncTask;
 
 import java.util.Collection;
 
@@ -10,7 +14,7 @@ public interface TaskManager extends AutoCloseable {
     AsyncTask getTask(String taskId) throws TaskNotFoundException;
     Collection<AsyncTask> getTasks();
 
-
+    void deleteCompleted();
 
     /**
      * Gracefully shutdowns TaskManager.
