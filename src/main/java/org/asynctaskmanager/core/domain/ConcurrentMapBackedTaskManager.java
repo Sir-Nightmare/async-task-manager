@@ -33,16 +33,20 @@ public class ConcurrentMapBackedTaskManager implements TaskManager {
 
     //region Public Api
     @Override
-    public AsyncTask submit(Runnable todo) {
+    public AsyncTask submit(Runnable todo) throws TaskAlreadySubmittedException {
         FutureBackedAsyncTask task = new FutureBackedAsyncTask(executor.submit(todo));
+        if (tasks.containsKey(task.getId())) throw new TaskAlreadySubmittedException(task.getId());
+
         tasks.put(task.getId(), task);
         logger.debug("Submitted task {}", task.getId());
         return task;
     }
 
     @Override
-    public AsyncTask submit(String taskId, Runnable todo) {
+    public AsyncTask submit(String taskId, Runnable todo) throws TaskAlreadySubmittedException {
         FutureBackedAsyncTask task = new FutureBackedAsyncTask(taskId, executor.submit(todo));
+        if (tasks.containsKey(task.getId())) throw new TaskAlreadySubmittedException(task.getId());
+
         tasks.put(task.getId(), task);
         logger.debug("Submitted task {}", task.getId());
         return task;

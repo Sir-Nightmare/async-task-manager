@@ -4,8 +4,8 @@ package org.asynctaskmanager.core.domain;
 import java.util.Collection;
 
 public interface TaskManager extends AutoCloseable {
-    AsyncTask submit(Runnable todo);
-    AsyncTask submit(String taskId, Runnable todo);
+    AsyncTask submit(Runnable todo) throws TaskAlreadySubmittedException;
+    AsyncTask submit(String taskId, Runnable todo) throws TaskAlreadySubmittedException;
 
     AsyncTask getTask(String taskId);
     Collection<AsyncTask> getTasks();
