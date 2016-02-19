@@ -1,6 +1,6 @@
 package org.asynctaskmanager.example;
 
-import org.asynctaskmanager.controller.BaseTaskController;
+import org.asynctaskmanager.core.controller.BaseTaskController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +29,4 @@ public class SimpleTaskController extends BaseTaskController<SimpleTaskRequest> 
             logger.debug("Done task with description {}", simpleTaskRequest.getDescription());
         };
     }
-
-
 }

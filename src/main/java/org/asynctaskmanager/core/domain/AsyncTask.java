@@ -1,4 +1,4 @@
-package org.asynctaskmanager.core;
+package org.asynctaskmanager.core.domain;
 
 public interface AsyncTask {
     String getId();
