@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.Collection;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
@@ -48,9 +49,15 @@ public abstract class BaseTaskController<R> {
             taskManager.submit(taskId, this.createTaskFromRequest(taskRequest));
     }
 
+
     @RequestMapping(value = "/{taskId}", method = RequestMethod.GET)
     public @ResponseBody AsyncTask getTask(@PathVariable("taskId") String taskId) {
         return taskManager.getTask(taskId);
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public @ResponseBody Collection<AsyncTask> getTasks() {
+        return taskManager.getTasks();
     }
     //endregion
 }

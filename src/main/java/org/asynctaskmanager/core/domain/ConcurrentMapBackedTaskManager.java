@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
@@ -47,9 +48,15 @@ public class ConcurrentMapBackedTaskManager implements TaskManager {
         return task;
     }
 
+
     @Override
     public AsyncTask getTask(String taskId) {
         return tasks.get(taskId);
+    }
+
+    @Override
+    public Collection<AsyncTask> getTasks() {
+        return tasks.values();
     }
 
     @Override
