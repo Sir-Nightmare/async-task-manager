@@ -7,7 +7,7 @@ public interface TaskManager extends AutoCloseable {
     AsyncTask submit(Runnable todo) throws TaskAlreadySubmittedException;
     AsyncTask submit(String taskId, Runnable todo) throws TaskAlreadySubmittedException;
 
-    AsyncTask getTask(String taskId);
+    AsyncTask getTask(String taskId) throws TaskNotFoundException;
     Collection<AsyncTask> getTasks();
 
     /**

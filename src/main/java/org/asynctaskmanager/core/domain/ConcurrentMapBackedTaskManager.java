@@ -54,7 +54,9 @@ public class ConcurrentMapBackedTaskManager implements TaskManager {
 
 
     @Override
-    public AsyncTask getTask(String taskId) {
+    public AsyncTask getTask(String taskId) throws TaskNotFoundException {
+        if (!tasks.containsKey(taskId)) throw new TaskNotFoundException(taskId);
+
         return tasks.get(taskId);
     }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.asynctaskmanager.core.domain.AsyncTask;
 import org.asynctaskmanager.core.domain.TaskAlreadySubmittedException;
 import org.asynctaskmanager.core.domain.TaskManager;
+import org.asynctaskmanager.core.domain.TaskNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,7 +53,7 @@ public abstract class BaseTaskController<R> {
 
 
     @RequestMapping(value = "/{taskId}", method = RequestMethod.GET)
-    public @ResponseBody AsyncTask getTask(@PathVariable("taskId") String taskId) {
+    public @ResponseBody AsyncTask getTask(@PathVariable("taskId") String taskId) throws TaskNotFoundException {
         return taskManager.getTask(taskId);
     }
 
