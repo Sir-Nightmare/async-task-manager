@@ -12,8 +12,10 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.concurrent.Callable;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Future;
 import java.util.stream.Collectors;
 
 /**
@@ -37,7 +39,7 @@ public class ConcurrentMapBackedTaskManager implements TaskManager {
 
     //region Public Api
     @Override
-    public AsyncTask submit(Runnable todo) throws TaskAlreadySubmittedException {
+    public AsyncTask submit(Callable<?> todo) throws TaskAlreadySubmittedException {
         FutureBackedAsyncTask task = new FutureBackedAsyncTask(executor.submit(todo));
         if (tasks.containsKey(task.getId())) throw new TaskAlreadySubmittedException(task.getId());
 
@@ -47,7 +49,7 @@ public class ConcurrentMapBackedTaskManager implements TaskManager {
     }
 
     @Override
-    public AsyncTask submit(String taskId, Runnable todo) throws TaskAlreadySubmittedException {
+    public AsyncTask submit(String taskId, Callable<?> todo) throws TaskAlreadySubmittedException {
         FutureBackedAsyncTask task = new FutureBackedAsyncTask(taskId, executor.submit(todo));
         if (tasks.containsKey(task.getId())) throw new TaskAlreadySubmittedException(task.getId());
 
