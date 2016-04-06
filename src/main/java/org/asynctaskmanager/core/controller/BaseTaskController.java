@@ -19,6 +19,8 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  * Base implementation of TaskController.
  * Code reuse achieved by extending it and setting up generic types with overriding _getRqClass_ and _createTask_. See [GoF] Template method.
  * @param <R> TaskRequest type.
+ * @param <T> task result type.
+
  */
 public abstract class BaseTaskController<R, T> {
     @Autowired private ObjectMapper jsonMapper;
