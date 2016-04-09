@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.util.Collection;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 import static org.apache.commons.lang3.StringUtils.isEmpty;
 
@@ -17,8 +19,10 @@ import static org.apache.commons.lang3.StringUtils.isEmpty;
  * Base implementation of TaskController.
  * Code reuse achieved by extending it and setting up generic types with overriding _getRqClass_ and _createTask_. See [GoF] Template method.
  * @param <R> TaskRequest type.
+ * @param <T> task result type.
+
  */
-public abstract class BaseTaskController<R> {
+public abstract class BaseTaskController<R, T> {
     @Autowired private ObjectMapper jsonMapper;
     @Autowired private TaskManager taskManager;
 
@@ -26,7 +30,7 @@ public abstract class BaseTaskController<R> {
     /**
      * Custom mapping of request to executable logic made in subclasses. [GoF] Template method.
      */
-    protected abstract Runnable createTaskFromRequest(R taskRequest);
+    protected abstract Callable<T> createTaskFromRequest(R taskRequest);
 
     /**
      * Need to get _concrete_ type of request structure for right json mapping from raw request string. See [GoF] Template method.

@@ -6,10 +6,12 @@ import org.asynctaskmanager.core.domain.exception.TaskNotFoundException;
 import org.asynctaskmanager.core.domain.task.AsyncTask;
 
 import java.util.Collection;
+import java.util.concurrent.Callable;
+import java.util.concurrent.Future;
 
 public interface TaskManager extends AutoCloseable {
-    AsyncTask submit(Runnable todo) throws TaskAlreadySubmittedException;
-    AsyncTask submit(String taskId, Runnable todo) throws TaskAlreadySubmittedException;
+    AsyncTask submit(Callable<?> todo) throws TaskAlreadySubmittedException;
+    AsyncTask submit(String taskId, Callable<?> todo) throws TaskAlreadySubmittedException;
 
     AsyncTask getTask(String taskId) throws TaskNotFoundException;
     Collection<AsyncTask> getTasks();

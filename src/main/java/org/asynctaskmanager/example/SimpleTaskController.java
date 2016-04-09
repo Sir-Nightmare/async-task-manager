@@ -6,10 +6,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.Callable;
+
 
 @RestController
 @RequestMapping("/tasks")
-public class SimpleTaskController extends BaseTaskController<SimpleTaskRequest> {
+public class SimpleTaskController extends BaseTaskController<SimpleTaskRequest, Void> {
     private static final Logger logger = LoggerFactory.getLogger(BaseTaskController.class);
 
     @Override
@@ -18,15 +20,16 @@ public class SimpleTaskController extends BaseTaskController<SimpleTaskRequest> 
     }
 
     @Override
-    protected Runnable createTaskFromRequest(SimpleTaskRequest simpleTaskRequest) {
+    protected Callable<Void> createTaskFromRequest(SimpleTaskRequest simpleTaskRequest) {
         return () -> {
             logger.debug("Starting task with description {}", simpleTaskRequest.getDescription());
             try {
-                Thread.sleep(2000);
+                Thread.sleep(20000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             logger.debug("Done task with description {}", simpleTaskRequest.getDescription());
+            return null;
         };
     }
 }
