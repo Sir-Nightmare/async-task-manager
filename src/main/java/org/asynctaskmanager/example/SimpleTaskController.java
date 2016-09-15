@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.concurrent.Callable;
 
 
@@ -20,7 +21,7 @@ public class SimpleTaskController extends BaseTaskController<SimpleTaskRequest, 
     }
 
     @Override
-    protected Callable<Void> createTaskFromRequest(SimpleTaskRequest simpleTaskRequest) {
+    protected Callable<Void> createTaskFromRequest(SimpleTaskRequest simpleTaskRequest, HttpServletRequest httpRequest) {
         return () -> {
             logger.debug("Starting task with description {}", simpleTaskRequest.getDescription());
             try {

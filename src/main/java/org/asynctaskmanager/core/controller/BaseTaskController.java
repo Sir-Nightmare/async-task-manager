@@ -8,6 +8,7 @@ import org.asynctaskmanager.core.domain.exception.TaskNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.Collection;
 import java.util.concurrent.Callable;
@@ -30,7 +31,7 @@ public abstract class BaseTaskController<R, T> {
     /**
      * Custom mapping of request to executable logic made in subclasses. [GoF] Template method.
      */
-    protected abstract Callable<T> createTaskFromRequest(R taskRequest);
+    protected abstract Callable<T> createTaskFromRequest(R taskRequest, HttpServletRequest httpRequest);
 
     /**
      * Need to get _concrete_ type of request structure for right json mapping from raw request string. See [GoF] Template method.
@@ -40,19 +41,19 @@ public abstract class BaseTaskController<R, T> {
 
     //region public API
     @RequestMapping(method = RequestMethod.POST)
-    public @ResponseBody AsyncTask submit(@RequestBody String rawTaskRequest) throws IOException, TaskAlreadySubmittedException { //FIXME exceptions
-        return submit(null, rawTaskRequest);
+    public @ResponseBody AsyncTask submit(@RequestBody String rawTaskRequest, HttpServletRequest httpRequest) throws IOException, TaskAlreadySubmittedException { //FIXME exceptions
+        return submit(null, rawTaskRequest, httpRequest);
     }
 
     @RequestMapping(value = "/{taskId}", method = RequestMethod.POST)
-    public @ResponseBody AsyncTask submit(@PathVariable("taskId") String taskId, @RequestBody String rawTaskRequest) throws IOException, TaskAlreadySubmittedException { //FIXME exceptions
+    public @ResponseBody AsyncTask submit(@PathVariable("taskId") String taskId, @RequestBody String rawTaskRequest, HttpServletRequest httpRequest) throws IOException, TaskAlreadySubmittedException { //FIXME exceptions
         if (isEmpty(rawTaskRequest)) throw new IllegalArgumentException("Empty task request");
 
         R taskRequest = jsonMapper.readValue(rawTaskRequest, this.getTaskRequestType());
 
         return taskId == null ?
-            taskManager.submit(this.createTaskFromRequest(taskRequest)) :
-            taskManager.submit(taskId, this.createTaskFromRequest(taskRequest));
+            taskManager.submit(this.createTaskFromRequest(taskRequest, httpRequest)) :
+            taskManager.submit(taskId, this.createTaskFromRequest(taskRequest, httpRequest));
     }
 
 

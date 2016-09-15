@@ -18,7 +18,7 @@ public class SimpleTaskController extends BaseTaskController<SimpleTaskRequest> 
     }
 
     @Override
-    protected Runnable createTaskFromRequest(SimpleTaskRequest simpleTaskRequest) {
+    protected Runnable createTaskFromRequest(SimpleTaskRequest simpleTaskRequest, HttpServletRequest httpRequest) {
         return () -> {
         	//map your TaskRequest to Runnable
         };
